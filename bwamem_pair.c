@@ -312,7 +312,7 @@ int mem_sam_pe(const mem_opt_t *opt, const bntseq_t *bns, const uint8_t *pac, co
 		mem_reorder_primary5(opt->T, &a[1]);
 	}
 	// JZ reorder if the 2 reads are not in the same chromosome
-	if (a[0].a[0].rid != a[1].a[0].rid){
+	if (n_pri[0] && n_pri[1] && a[0].a[0].score >= opt->T && a[1].a[0].score >= opt->T && (a[0].a[0].rid != a[1].a[0].rid)){
 		int j = 0, k = 1;
 		if (a[0].a[0].sub == a[0].a[0].score || a[1].a[0].sub == a[1].a[0].score){
 			if (a[1].a[0].sub == a[1].a[0].score) j = 1, k = 0; // 2nd read has mapping quality 0
@@ -327,7 +327,7 @@ int mem_sam_pe(const mem_opt_t *opt, const bntseq_t *bns, const uint8_t *pac, co
 					a[j].a[0].sub_n = a[j].a[i].sub_n;
 					a[j].a[i].secondary_all = secondary_all;
 					a[j].a[i].secondary = secondary;
-					a[j].a[i].sub = a[j].a[0].score;
+					//a[j].a[i].sub = a[j].a[0].score;
 					a[j].a[i].sub_n = sub_n;
 					myswap(&a[j].a[0], &a[j].a[i]);
 					break;
